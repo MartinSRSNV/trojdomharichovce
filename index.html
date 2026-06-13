@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=2">
 </head>
 <body>
 
@@ -100,6 +100,13 @@
                     <div>
                         <div class="ttl">Pokojná slepá ulica</div>
                         <div class="sub">Bez prejazdovej premávky — bezpečné prostredie ideálne pre rodiny s deťmi</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">▬</div>
+                    <div>
+                        <div class="ttl">Rovinatý pozemok</div>
+                        <div class="sub">Bez svahov a terénnych úprav — pripravený na okamžité užívanie aj výsadbu záhrady</div>
                     </div>
                 </div>
             </div>
@@ -454,71 +461,88 @@ const observer = new IntersectionObserver((entries) => {
 revealEls.forEach(el => observer.observe(el));
 
 // ===== Lightbox =====
-const lightbox = document.getElementById('lightbox');
-const lbImg = document.getElementById('lbImg');
-const lbCaption = document.getElementById('lbCaption');
-const lbCounter = document.getElementById('lbCounter');
-const lbClose = document.getElementById('lbClose');
-const lbPrev = document.getElementById('lbPrev');
-const lbNext = document.getElementById('lbNext');
+(function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) { console.warn('Lightbox: overlay not found'); return; }
 
-let currentGroup = [];
-let currentIndex = 0;
+    const lbImg = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
 
-function openLightbox(group, index) {
-    currentGroup = group;
-    currentIndex = index;
-    showCurrent();
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-    lightbox.classList.remove('open');
-    lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-}
-function showCurrent() {
-    const img = currentGroup[currentIndex];
-    lbImg.src = img.src;
-    lbImg.alt = img.alt;
-    lbCaption.textContent = img.alt;
-    lbCounter.textContent = (currentIndex + 1) + ' / ' + currentGroup.length;
-    lbPrev.style.display = currentGroup.length > 1 ? 'flex' : 'none';
-    lbNext.style.display = currentGroup.length > 1 ? 'flex' : 'none';
-}
-function next() { currentIndex = (currentIndex + 1) % currentGroup.length; showCurrent(); }
-function prev() { currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length; showCurrent(); }
+    let currentGroup = [];
+    let currentIndex = 0;
 
-// Group triggers by data-lightbox
-document.querySelectorAll('.lightbox-trigger').forEach(img => {
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', () => {
-        const groupName = img.dataset.lightbox;
-        const group = Array.from(document.querySelectorAll(`[data-lightbox="${groupName}"]`));
-        const index = group.indexOf(img);
-        openLightbox(group, index);
+    function openLightbox(group, index) {
+        currentGroup = group;
+        currentIndex = index;
+        showCurrent();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+    function showCurrent() {
+        const img = currentGroup[currentIndex];
+        if (!img) return;
+        lbImg.src = img.src;
+        lbImg.alt = img.alt || '';
+        lbCaption.textContent = img.alt || '';
+        lbCounter.textContent = (currentIndex + 1) + ' / ' + currentGroup.length;
+        const showNav = currentGroup.length > 1;
+        lbPrev.style.display = showNav ? 'flex' : 'none';
+        lbNext.style.display = showNav ? 'flex' : 'none';
+    }
+    function next(e) { if (e) { e.stopPropagation(); } currentIndex = (currentIndex + 1) % currentGroup.length; showCurrent(); }
+    function prev(e) { if (e) { e.stopPropagation(); } currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length; showCurrent(); }
+
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+    console.log('Lightbox: found ' + triggers.length + ' triggers');
+
+    triggers.forEach(function(img) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function(e) {
+            e.preventDefault();
+            const groupName = img.getAttribute('data-lightbox') || 'default';
+            const group = Array.from(document.querySelectorAll('[data-lightbox="' + groupName + '"]'));
+            const index = group.indexOf(img);
+            openLightbox(group, index);
+        });
     });
-});
 
-lbClose.addEventListener('click', closeLightbox);
-lbPrev.addEventListener('click', prev);
-lbNext.addEventListener('click', next);
-lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target.classList.contains('lb-stage')) closeLightbox(); });
-document.addEventListener('keydown', e => {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') next();
-    if (e.key === 'ArrowLeft') prev();
-});
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev) lbPrev.addEventListener('click', prev);
+    if (lbNext) lbNext.addEventListener('click', next);
 
-// Swipe gestures for mobile
-let touchStartX = 0;
-lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
-lightbox.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].screenX - touchStartX;
-    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
-});
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox || e.target.classList.contains('lb-stage') || e.target === lbImg || e.target === lbCaption) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+    });
+
+    // Touch swipe for mobile
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+    }, { passive: true });
+})();
 </script>
 
 </body>
