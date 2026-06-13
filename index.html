@@ -51,7 +51,7 @@
         </p>
         <div class="hero-stats">
             <div class="stat"><div class="num">A</div><div class="lbl">Energetický<br>certifikát</div></div>
-            <div class="stat"><div class="num">~ 90&nbsp;€</div><div class="lbl">Náklady /<br>mesiac</div></div>
+            <div class="stat"><div class="num">Nízke</div><div class="lbl">Mesačné<br>náklady</div></div>
             <div class="stat"><div class="num">80&nbsp;m²</div><div class="lbl">Úžitková<br>plocha</div></div>
             <div class="stat"><div class="num">570&nbsp;m²</div><div class="lbl">Výmera<br>pozemku</div></div>
         </div>
@@ -95,10 +95,17 @@
                         <div class="sub">Cena vrátane prevodu vlastníckeho práva</div>
                     </div>
                 </div>
+                <div class="feature-item">
+                    <div class="feature-icon">↳</div>
+                    <div>
+                        <div class="ttl">Pokojná slepá ulica</div>
+                        <div class="sub">Bez prejazdovej premávky — bezpečné prostredie ideálne pre rodiny s deťmi</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="welcome-photo">
-            <img src="assets/img/exterior_patio.jpg" alt="Záhrada a terasa">
+            <img src="assets/img/exterior_patio.jpg" alt="Záhrada a terasa" class="lightbox-trigger" data-lightbox="gallery">
         </div>
     </div>
 </section>
@@ -118,7 +125,7 @@
         </p>
 
         <div class="units-photo">
-            <img src="assets/img/aerial_full.jpg" alt="Trojdom Harichovce zo vzduchu">
+            <img src="assets/img/aerial_full.jpg" alt="Trojdom Harichovce zo vzduchu" class="lightbox-trigger" data-lightbox="aerials">
         </div>
 
         <div class="units-grid">
@@ -171,23 +178,23 @@
 
         <div class="gallery">
             <div class="g-item g-large">
-                <img src="assets/img/living_room.jpg" alt="Obytná hala s jedálňou">
+                <img src="assets/img/living_room.jpg" alt="Obytná hala s jedálňou" class="lightbox-trigger" data-lightbox="gallery">
                 <div class="g-caption">Obytná hala s jedálňou</div>
             </div>
             <div class="g-item">
-                <img src="assets/img/kitchen.jpg" alt="Otvorená kuchyňa">
+                <img src="assets/img/kitchen.jpg" alt="Otvorená kuchyňa" class="lightbox-trigger" data-lightbox="gallery">
                 <div class="g-caption">Otvorená kuchyňa</div>
             </div>
             <div class="g-item">
-                <img src="assets/img/bedroom_master.jpg" alt="Spálňa">
+                <img src="assets/img/bedroom_master.jpg" alt="Spálňa" class="lightbox-trigger" data-lightbox="gallery">
                 <div class="g-caption">Spálňa</div>
             </div>
             <div class="g-item">
-                <img src="assets/img/bedroom_kids.jpg" alt="Druhá izba">
+                <img src="assets/img/bedroom_kids.jpg" alt="Druhá izba" class="lightbox-trigger" data-lightbox="gallery">
                 <div class="g-caption">Druhá izba</div>
             </div>
             <div class="g-item">
-                <img src="assets/img/exterior_patio.jpg" alt="Záhrada a terasa">
+                <img src="assets/img/exterior_patio.jpg" alt="Záhrada a terasa" class="lightbox-trigger" data-lightbox="gallery">
                 <div class="g-caption">Záhrada a terasa</div>
             </div>
         </div>
@@ -200,7 +207,7 @@
 <section class="floorplan" id="dispozicia">
     <div class="container floorplan-grid">
         <div class="floorplan-img">
-            <img src="assets/img/floor_plan.jpg" alt="Pôdorys domu">
+            <img src="assets/img/floor_plan.jpg" alt="Pôdorys domu" class="lightbox-trigger" data-lightbox="plan">
         </div>
         <div class="floorplan-text">
             <div class="eyebrow"><span class="dot"></span>Dispozícia</div>
@@ -332,6 +339,7 @@
                 </p>
                 <div class="distances">
                     <div class="dist-row"><div class="dist-place">Spišská Nová Ves</div><div class="dist-value">~ 5 km</div></div>
+                    <div class="dist-row"><div class="dist-place">Diaľnica D1 (nájazd)</div><div class="dist-value">~ 10 km</div></div>
                     <div class="dist-row"><div class="dist-place">Levoča</div><div class="dist-value">~ 10 km</div></div>
                     <div class="dist-row"><div class="dist-place">Poprad (Tatry)</div><div class="dist-value">~ 25 km</div></div>
                     <div class="dist-row"><div class="dist-place">Slovenský raj (NP)</div><div class="dist-value">~ 10 km</div></div>
@@ -364,7 +372,7 @@
             <div class="cta-icon">→</div>
             <div>
                 <div class="cta-ttl">Pozrieť si projekt naživo</div>
-                <div class="cta-sub">Dohodneme obhliadku v termíne, ktorý vám vyhovuje — vrátane víkendov.</div>
+                <div class="cta-sub">Dohodneme obhliadku v termíne, ktorý vám vyhovuje.</div>
             </div>
         </div>
 
@@ -384,6 +392,21 @@
         </div>
     </div>
 </section>
+
+<!-- ============================================================
+     LIGHTBOX OVERLAY
+     ============================================================ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Zatvoriť">×</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Predošlá">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Ďalšia">›</button>
+    <div class="lb-stage">
+        <img class="lb-img" id="lbImg" alt="">
+        <div class="lb-caption" id="lbCaption"></div>
+        <div class="lb-counter" id="lbCounter"></div>
+    </div>
+</div>
+
 
 <!-- ============================================================
      FOOTER
@@ -429,6 +452,73 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 revealEls.forEach(el => observer.observe(el));
+
+// ===== Lightbox =====
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+const lbCounter = document.getElementById('lbCounter');
+const lbClose = document.getElementById('lbClose');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+
+let currentGroup = [];
+let currentIndex = 0;
+
+function openLightbox(group, index) {
+    currentGroup = group;
+    currentIndex = index;
+    showCurrent();
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+function showCurrent() {
+    const img = currentGroup[currentIndex];
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCaption.textContent = img.alt;
+    lbCounter.textContent = (currentIndex + 1) + ' / ' + currentGroup.length;
+    lbPrev.style.display = currentGroup.length > 1 ? 'flex' : 'none';
+    lbNext.style.display = currentGroup.length > 1 ? 'flex' : 'none';
+}
+function next() { currentIndex = (currentIndex + 1) % currentGroup.length; showCurrent(); }
+function prev() { currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length; showCurrent(); }
+
+// Group triggers by data-lightbox
+document.querySelectorAll('.lightbox-trigger').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+        const groupName = img.dataset.lightbox;
+        const group = Array.from(document.querySelectorAll(`[data-lightbox="${groupName}"]`));
+        const index = group.indexOf(img);
+        openLightbox(group, index);
+    });
+});
+
+lbClose.addEventListener('click', closeLightbox);
+lbPrev.addEventListener('click', prev);
+lbNext.addEventListener('click', next);
+lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target.classList.contains('lb-stage')) closeLightbox(); });
+document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+});
+
+// Swipe gestures for mobile
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+lightbox.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+});
 </script>
 
 </body>
