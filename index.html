@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body>
 
@@ -379,6 +379,31 @@
 </section>
 
 <!-- ============================================================
+     PERSONAL INVITATION
+     ============================================================ -->
+<section class="invite">
+    <div class="container">
+        <div class="speech">
+            <div class="speech-mark">„</div>
+            <p class="speech-text">
+                Poďme do toho <span class="italic">spoločne</span>, pán Krajňák.
+            </p>
+            <p class="speech-sub">
+                Môže to byť náš prvý — ale nie posledný — spoločný projekt.
+            </p>
+            <div class="speech-author">
+                <img src="assets/img/martin_thumb.jpg" alt="Martin Augustiňák">
+                <div>
+                    <div class="sa-name">Martin Augustiňák, RSc.</div>
+                    <div class="sa-role">Konateľ Alpha Reality</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
      CONTACT / CTA
      ============================================================ -->
 <section class="contact" id="kontakt">
@@ -486,8 +511,8 @@ window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// Scroll reveal
-const revealEls = document.querySelectorAll('.unit-card, .g-item, .tech-item, .why-item, .feature-item, .dist-row');
+// Gentle fade-in reveal — triggers early (before in view) so scrolling stays smooth
+const revealEls = document.querySelectorAll('.unit-card, .g-item, .tech-item, .why-item, .feature-item, .dist-row, .speech');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -495,10 +520,10 @@ const observer = new IntersectionObserver((entries) => {
             observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.15 });
+}, { rootMargin: '0px 0px -5% 0px', threshold: 0.01 });
 revealEls.forEach(el => observer.observe(el));
 
-// Section in-view trigger (for h2/eyebrow/lead staggered reveals)
+// Section content fade-in (eyebrow/h2/lead)
 const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -506,29 +531,8 @@ const sectionObserver = new IntersectionObserver((entries) => {
             sectionObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.12 });
+}, { rootMargin: '0px 0px -5% 0px', threshold: 0.01 });
 document.querySelectorAll('section').forEach(s => sectionObserver.observe(s));
-
-// 3D tilt effect on unit cards (subtle parallax follow)
-const tiltCards = document.querySelectorAll('.unit-card');
-const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-if (isFinePointer) {
-    tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const cx = rect.width / 2;
-            const cy = rect.height / 2;
-            const rotateX = ((y - cy) / cy) * -5;
-            const rotateY = ((x - cx) / cx) * 5;
-            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
-}
 
 // ===== Lightbox =====
 (function initLightbox() {
