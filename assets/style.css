@@ -19,7 +19,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -85,8 +85,8 @@ img { display: block; max-width: 100%; }
     animation: shimmer 3s linear infinite;
     z-index: 200;
     width: 0;
-    transition: width 0.1s linear;
     box-shadow: 0 0 12px rgba(217,180,71,0.55);
+    will-change: width;
 }
 
 h1, h2 {
@@ -251,7 +251,7 @@ h2 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); margin-bottom: 14px; }
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: kenBurns 22s ease-in-out infinite alternate;
+    animation: kenBurns 35s ease-in-out infinite alternate;
     will-change: transform;
 }
 .hero-bg::after {
@@ -277,14 +277,14 @@ h2 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); margin-bottom: 14px; }
     width: 280px; height: 280px;
     background: var(--gold);
     top: 18%; right: 8%;
-    animation: float 14s ease-in-out infinite;
+    animation: float 22s ease-in-out infinite;
 }
 .hero-orb-2 {
     width: 200px; height: 200px;
     background: var(--gold-light);
     bottom: 22%; left: 10%;
-    animation: float 18s ease-in-out infinite reverse;
-    opacity: 0.25;
+    animation: float 28s ease-in-out infinite reverse;
+    opacity: 0.22;
 }
 
 .hero-content {
@@ -421,8 +421,8 @@ section > .container > .eyebrow,
 section > .container > h2,
 section > .container > .lead {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 section.in-view h2,
 section.in-view > .container > .eyebrow,
@@ -431,9 +431,9 @@ section.in-view > .container > .lead {
     opacity: 1;
     transform: translateY(0);
 }
-section.in-view > .container > .eyebrow { transition-delay: 0.05s; }
-section.in-view > .container > h2        { transition-delay: 0.15s; }
-section.in-view > .container > .lead     { transition-delay: 0.25s; }
+section.in-view > .container > .eyebrow { transition-delay: 0s; }
+section.in-view > .container > h2        { transition-delay: 0.06s; }
+section.in-view > .container > .lead     { transition-delay: 0.12s; }
 
 /* ============================================================
    WELCOME
@@ -469,15 +469,16 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     border: 1px solid var(--gold-border);
     border-radius: 12px;
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2), border-color 0.3s ease, background 0.3s ease;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.3s ease, background 0.3s ease;
+    will-change: opacity, transform;
 }
-.feature-item.visible { opacity: 1; transform: translateY(0); }
-.feature-item:nth-child(1).visible { transition-delay: 0.05s; }
-.feature-item:nth-child(2).visible { transition-delay: 0.15s; }
-.feature-item:nth-child(3).visible { transition-delay: 0.25s; }
-.feature-item:nth-child(4).visible { transition-delay: 0.35s; }
-.feature-item:nth-child(5).visible { transition-delay: 0.45s; }
+.feature-item.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.feature-item:nth-child(1).visible { transition-delay: 0s; }
+.feature-item:nth-child(2).visible { transition-delay: 0.06s; }
+.feature-item:nth-child(3).visible { transition-delay: 0.12s; }
+.feature-item:nth-child(4).visible { transition-delay: 0.18s; }
+.feature-item:nth-child(5).visible { transition-delay: 0.24s; }
 .feature-item:hover {
     border-color: var(--gold);
     transform: translateX(6px);
@@ -546,15 +547,15 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     border-radius: 14px;
     padding: 26px 24px;
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2), border-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     transform-style: preserve-3d;
-    will-change: transform;
+    will-change: opacity, transform;
 }
-.unit-card.visible { opacity: 1; transform: translateY(0); }
-.unit-card:nth-child(1).visible { transition-delay: 0.1s; }
-.unit-card:nth-child(2).visible { transition-delay: 0.25s; }
-.unit-card:nth-child(3).visible { transition-delay: 0.4s; }
+.unit-card.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.unit-card:nth-child(1).visible { transition-delay: 0s; }
+.unit-card:nth-child(2).visible { transition-delay: 0.08s; }
+.unit-card:nth-child(3).visible { transition-delay: 0.16s; }
 .unit-card:hover {
     border-color: var(--gold);
     box-shadow: 0 18px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,162,39,0.25);
@@ -624,15 +625,16 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     border: 1px solid var(--gold-border);
     min-height: 200px;
     opacity: 0;
-    transform: scale(0.94);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.4s ease;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.4s ease;
+    will-change: opacity, transform;
 }
-.g-item.visible { opacity: 1; transform: scale(1); }
-.g-item:nth-child(1).visible { transition-delay: 0.05s; }
-.g-item:nth-child(2).visible { transition-delay: 0.15s; }
-.g-item:nth-child(3).visible { transition-delay: 0.25s; }
-.g-item:nth-child(4).visible { transition-delay: 0.35s; }
-.g-item:nth-child(5).visible { transition-delay: 0.45s; }
+.g-item.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.g-item:nth-child(1).visible { transition-delay: 0s; }
+.g-item:nth-child(2).visible { transition-delay: 0.06s; }
+.g-item:nth-child(3).visible { transition-delay: 0.12s; }
+.g-item:nth-child(4).visible { transition-delay: 0.18s; }
+.g-item:nth-child(5).visible { transition-delay: 0.24s; }
 .g-item:hover {
     box-shadow: 0 18px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--gold);
 }
@@ -755,19 +757,20 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     align-items: flex-start;
     gap: 16px;
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.4s ease;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    will-change: opacity, transform;
 }
-.tech-item.visible { opacity: 1; transform: translateY(0); }
-.tech-item:nth-child(1).visible { transition-delay: 0.05s; }
-.tech-item:nth-child(2).visible { transition-delay: 0.10s; }
-.tech-item:nth-child(3).visible { transition-delay: 0.15s; }
-.tech-item:nth-child(4).visible { transition-delay: 0.20s; }
-.tech-item:nth-child(5).visible { transition-delay: 0.25s; }
-.tech-item:nth-child(6).visible { transition-delay: 0.30s; }
-.tech-item:nth-child(7).visible { transition-delay: 0.35s; }
-.tech-item:nth-child(8).visible { transition-delay: 0.40s; }
-.tech-item:nth-child(9).visible { transition-delay: 0.45s; }
+.tech-item.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.tech-item:nth-child(1).visible { transition-delay: 0s; }
+.tech-item:nth-child(2).visible { transition-delay: 0.04s; }
+.tech-item:nth-child(3).visible { transition-delay: 0.08s; }
+.tech-item:nth-child(4).visible { transition-delay: 0.12s; }
+.tech-item:nth-child(5).visible { transition-delay: 0.16s; }
+.tech-item:nth-child(6).visible { transition-delay: 0.20s; }
+.tech-item:nth-child(7).visible { transition-delay: 0.24s; }
+.tech-item:nth-child(8).visible { transition-delay: 0.28s; }
+.tech-item:nth-child(9).visible { transition-delay: 0.32s; }
 .tech-item:hover { transform: translateX(4px); }
 .tech-icon {
     width: 44px; height: 44px;
@@ -806,14 +809,15 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     align-items: flex-start;
     gap: 16px;
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.5s ease;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    will-change: opacity, transform;
 }
-.why-item.visible { opacity: 1; transform: translateY(0); }
-.why-item:nth-child(1).visible { transition-delay: 0.10s; }
-.why-item:nth-child(2).visible { transition-delay: 0.20s; }
-.why-item:nth-child(3).visible { transition-delay: 0.30s; }
-.why-item:nth-child(4).visible { transition-delay: 0.40s; }
+.why-item.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.why-item:nth-child(1).visible { transition-delay: 0s; }
+.why-item:nth-child(2).visible { transition-delay: 0.08s; }
+.why-item:nth-child(3).visible { transition-delay: 0.16s; }
+.why-item:nth-child(4).visible { transition-delay: 0.24s; }
 .why-num {
     width: 32px; height: 32px;
     flex-shrink: 0;
@@ -860,18 +864,19 @@ section.in-view > .container > .lead     { transition-delay: 0.25s; }
     margin: 0 -12px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
     opacity: 0;
-    transform: translateX(-12px);
-    transition: opacity 0.5s ease, transform 0.5s ease, background 0.25s ease, padding 0.25s ease;
+    transform: translateX(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.25s ease, padding 0.25s ease;
     border-radius: 6px;
+    will-change: opacity, transform;
 }
-.dist-row.visible { opacity: 1; transform: translateX(0); }
-.dist-row:nth-child(1).visible { transition-delay: 0.05s; }
-.dist-row:nth-child(2).visible { transition-delay: 0.12s; }
-.dist-row:nth-child(3).visible { transition-delay: 0.19s; }
-.dist-row:nth-child(4).visible { transition-delay: 0.26s; }
-.dist-row:nth-child(5).visible { transition-delay: 0.33s; }
-.dist-row:nth-child(6).visible { transition-delay: 0.40s; }
-.dist-row:nth-child(7).visible { transition-delay: 0.47s; }
+.dist-row.visible { opacity: 1; transform: translateX(0); will-change: auto; }
+.dist-row:nth-child(1).visible { transition-delay: 0s; }
+.dist-row:nth-child(2).visible { transition-delay: 0.04s; }
+.dist-row:nth-child(3).visible { transition-delay: 0.08s; }
+.dist-row:nth-child(4).visible { transition-delay: 0.12s; }
+.dist-row:nth-child(5).visible { transition-delay: 0.16s; }
+.dist-row:nth-child(6).visible { transition-delay: 0.20s; }
+.dist-row:nth-child(7).visible { transition-delay: 0.24s; }
 .dist-row:hover {
     background: rgba(201,162,39,0.06);
     padding-left: 18px;

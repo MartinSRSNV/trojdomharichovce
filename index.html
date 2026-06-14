@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 
@@ -436,14 +436,34 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Scroll progress bar
+// Smooth scroll for anchor links (controlled, ~500ms)
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+        const targetId = a.getAttribute('href');
+        if (targetId.length < 2) return;
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top, behavior: 'smooth' });
+    });
+});
+
+// Scroll progress bar (rAF-throttled for smoothness)
 const scrollProgress = document.getElementById('scrollProgress');
+let ticking = false;
 function updateProgress() {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
     scrollProgress.style.width = pct + '%';
+    ticking = false;
 }
-window.addEventListener('scroll', updateProgress, { passive: true });
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+    }
+}, { passive: true });
 updateProgress();
 
 // Mobile nav toggle
